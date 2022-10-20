@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: rpc/cat_community.proto
+// source: cat_community.proto
 
 package pb
 
@@ -22,12 +22,38 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CatCommunityClient interface {
+	// Cat
 	// 根据ID查询猫咪信息
-	GetDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error)
+	GetCatDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error)
 	// 查询猫咪信息
 	QueryCat(ctx context.Context, in *QueryCatReq, opts ...grpc.CallOption) (*QueryCatResp, error)
 	// 上传或更新猫咪信息
 	UploadCat(ctx context.Context, in *UploadCatReq, opts ...grpc.CallOption) (*UploadCatResp, error)
+	// User
+	// 获取用户信息
+	GetUserDetail(ctx context.Context, in *GetUserDetailReq, opts ...grpc.CallOption) (*GetUserDetailResp, error)
+	// 插入或更新用户信息
+	UpsertUserDetail(ctx context.Context, in *UpsertUserReq, opts ...grpc.CallOption) (*UpsertUserDetailResp, error)
+	// Moment
+	// 查询单个动态详情
+	GetMomentDetail(ctx context.Context, in *GetMomentDetailReq, opts ...grpc.CallOption) (*GetMomentDetailResp, error)
+	// 查询动态列表
+	QueryMoment(ctx context.Context, in *QueryMomentReq, opts ...grpc.CallOption) (*QueryMomentResp, error)
+	// 上传或更新动态
+	UpsertMoment(ctx context.Context, in *UpsertMomentReq, opts ...grpc.CallOption) (*UpsertMomentResp, error)
+	// Comment
+	// 获取评论列表
+	ListComment(ctx context.Context, in *ListCommentReq, opts ...grpc.CallOption) (*QueryMomentResp, error)
+	// 发表评论
+	PostComment(ctx context.Context, in *PostCommentReq, opts ...grpc.CallOption) (*PostCommentResp, error)
+	// Admin
+	// 获取管理员信息
+	GetAdminDetail(ctx context.Context, in *GetAdminDetailReq, opts ...grpc.CallOption) (*GetAdminDetailResp, error)
+	// 获取管理员列表
+	ListAdmin(ctx context.Context, in *ListAdminReq, opts ...grpc.CallOption) (*ListAdminResp, error)
+	// Carousel
+	// 获取轮播图列表
+	ListCarousel(ctx context.Context, in *ListCarouselReq, opts ...grpc.CallOption) (*ListCarouselResp, error)
 }
 
 type catCommunityClient struct {
@@ -38,9 +64,9 @@ func NewCatCommunityClient(cc grpc.ClientConnInterface) CatCommunityClient {
 	return &catCommunityClient{cc}
 }
 
-func (c *catCommunityClient) GetDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error) {
+func (c *catCommunityClient) GetCatDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error) {
 	out := new(CatDetailResp)
-	err := c.cc.Invoke(ctx, "/cat.CatCommunity/getDetail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/getCatDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,16 +91,132 @@ func (c *catCommunityClient) UploadCat(ctx context.Context, in *UploadCatReq, op
 	return out, nil
 }
 
+func (c *catCommunityClient) GetUserDetail(ctx context.Context, in *GetUserDetailReq, opts ...grpc.CallOption) (*GetUserDetailResp, error) {
+	out := new(GetUserDetailResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/getUserDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) UpsertUserDetail(ctx context.Context, in *UpsertUserReq, opts ...grpc.CallOption) (*UpsertUserDetailResp, error) {
+	out := new(UpsertUserDetailResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/upsertUserDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) GetMomentDetail(ctx context.Context, in *GetMomentDetailReq, opts ...grpc.CallOption) (*GetMomentDetailResp, error) {
+	out := new(GetMomentDetailResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/getMomentDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) QueryMoment(ctx context.Context, in *QueryMomentReq, opts ...grpc.CallOption) (*QueryMomentResp, error) {
+	out := new(QueryMomentResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/queryMoment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) UpsertMoment(ctx context.Context, in *UpsertMomentReq, opts ...grpc.CallOption) (*UpsertMomentResp, error) {
+	out := new(UpsertMomentResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/upsertMoment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) ListComment(ctx context.Context, in *ListCommentReq, opts ...grpc.CallOption) (*QueryMomentResp, error) {
+	out := new(QueryMomentResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/listComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) PostComment(ctx context.Context, in *PostCommentReq, opts ...grpc.CallOption) (*PostCommentResp, error) {
+	out := new(PostCommentResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/postComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) GetAdminDetail(ctx context.Context, in *GetAdminDetailReq, opts ...grpc.CallOption) (*GetAdminDetailResp, error) {
+	out := new(GetAdminDetailResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/getAdminDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) ListAdmin(ctx context.Context, in *ListAdminReq, opts ...grpc.CallOption) (*ListAdminResp, error) {
+	out := new(ListAdminResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/listAdmin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catCommunityClient) ListCarousel(ctx context.Context, in *ListCarouselReq, opts ...grpc.CallOption) (*ListCarouselResp, error) {
+	out := new(ListCarouselResp)
+	err := c.cc.Invoke(ctx, "/cat.CatCommunity/listCarousel", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CatCommunityServer is the server API for CatCommunity service.
 // All implementations must embed UnimplementedCatCommunityServer
 // for forward compatibility
 type CatCommunityServer interface {
+	// Cat
 	// 根据ID查询猫咪信息
-	GetDetail(context.Context, *CatDetailReq) (*CatDetailResp, error)
+	GetCatDetail(context.Context, *CatDetailReq) (*CatDetailResp, error)
 	// 查询猫咪信息
 	QueryCat(context.Context, *QueryCatReq) (*QueryCatResp, error)
 	// 上传或更新猫咪信息
 	UploadCat(context.Context, *UploadCatReq) (*UploadCatResp, error)
+	// User
+	// 获取用户信息
+	GetUserDetail(context.Context, *GetUserDetailReq) (*GetUserDetailResp, error)
+	// 插入或更新用户信息
+	UpsertUserDetail(context.Context, *UpsertUserReq) (*UpsertUserDetailResp, error)
+	// Moment
+	// 查询单个动态详情
+	GetMomentDetail(context.Context, *GetMomentDetailReq) (*GetMomentDetailResp, error)
+	// 查询动态列表
+	QueryMoment(context.Context, *QueryMomentReq) (*QueryMomentResp, error)
+	// 上传或更新动态
+	UpsertMoment(context.Context, *UpsertMomentReq) (*UpsertMomentResp, error)
+	// Comment
+	// 获取评论列表
+	ListComment(context.Context, *ListCommentReq) (*QueryMomentResp, error)
+	// 发表评论
+	PostComment(context.Context, *PostCommentReq) (*PostCommentResp, error)
+	// Admin
+	// 获取管理员信息
+	GetAdminDetail(context.Context, *GetAdminDetailReq) (*GetAdminDetailResp, error)
+	// 获取管理员列表
+	ListAdmin(context.Context, *ListAdminReq) (*ListAdminResp, error)
+	// Carousel
+	// 获取轮播图列表
+	ListCarousel(context.Context, *ListCarouselReq) (*ListCarouselResp, error)
 	mustEmbedUnimplementedCatCommunityServer()
 }
 
@@ -82,14 +224,44 @@ type CatCommunityServer interface {
 type UnimplementedCatCommunityServer struct {
 }
 
-func (UnimplementedCatCommunityServer) GetDetail(context.Context, *CatDetailReq) (*CatDetailResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDetail not implemented")
+func (UnimplementedCatCommunityServer) GetCatDetail(context.Context, *CatDetailReq) (*CatDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCatDetail not implemented")
 }
 func (UnimplementedCatCommunityServer) QueryCat(context.Context, *QueryCatReq) (*QueryCatResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryCat not implemented")
 }
 func (UnimplementedCatCommunityServer) UploadCat(context.Context, *UploadCatReq) (*UploadCatResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadCat not implemented")
+}
+func (UnimplementedCatCommunityServer) GetUserDetail(context.Context, *GetUserDetailReq) (*GetUserDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDetail not implemented")
+}
+func (UnimplementedCatCommunityServer) UpsertUserDetail(context.Context, *UpsertUserReq) (*UpsertUserDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertUserDetail not implemented")
+}
+func (UnimplementedCatCommunityServer) GetMomentDetail(context.Context, *GetMomentDetailReq) (*GetMomentDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMomentDetail not implemented")
+}
+func (UnimplementedCatCommunityServer) QueryMoment(context.Context, *QueryMomentReq) (*QueryMomentResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryMoment not implemented")
+}
+func (UnimplementedCatCommunityServer) UpsertMoment(context.Context, *UpsertMomentReq) (*UpsertMomentResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertMoment not implemented")
+}
+func (UnimplementedCatCommunityServer) ListComment(context.Context, *ListCommentReq) (*QueryMomentResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListComment not implemented")
+}
+func (UnimplementedCatCommunityServer) PostComment(context.Context, *PostCommentReq) (*PostCommentResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostComment not implemented")
+}
+func (UnimplementedCatCommunityServer) GetAdminDetail(context.Context, *GetAdminDetailReq) (*GetAdminDetailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdminDetail not implemented")
+}
+func (UnimplementedCatCommunityServer) ListAdmin(context.Context, *ListAdminReq) (*ListAdminResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAdmin not implemented")
+}
+func (UnimplementedCatCommunityServer) ListCarousel(context.Context, *ListCarouselReq) (*ListCarouselResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCarousel not implemented")
 }
 func (UnimplementedCatCommunityServer) mustEmbedUnimplementedCatCommunityServer() {}
 
@@ -104,20 +276,20 @@ func RegisterCatCommunityServer(s grpc.ServiceRegistrar, srv CatCommunityServer)
 	s.RegisterService(&CatCommunity_ServiceDesc, srv)
 }
 
-func _CatCommunity_GetDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CatCommunity_GetCatDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CatDetailReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CatCommunityServer).GetDetail(ctx, in)
+		return srv.(CatCommunityServer).GetCatDetail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cat.CatCommunity/getDetail",
+		FullMethod: "/cat.CatCommunity/getCatDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CatCommunityServer).GetDetail(ctx, req.(*CatDetailReq))
+		return srv.(CatCommunityServer).GetCatDetail(ctx, req.(*CatDetailReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -158,6 +330,186 @@ func _CatCommunity_UploadCat_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CatCommunity_GetUserDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).GetUserDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/getUserDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).GetUserDetail(ctx, req.(*GetUserDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_UpsertUserDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).UpsertUserDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/upsertUserDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).UpsertUserDetail(ctx, req.(*UpsertUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_GetMomentDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMomentDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).GetMomentDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/getMomentDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).GetMomentDetail(ctx, req.(*GetMomentDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_QueryMoment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryMomentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).QueryMoment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/queryMoment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).QueryMoment(ctx, req.(*QueryMomentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_UpsertMoment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertMomentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).UpsertMoment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/upsertMoment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).UpsertMoment(ctx, req.(*UpsertMomentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_ListComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCommentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).ListComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/listComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).ListComment(ctx, req.(*ListCommentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_PostComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostCommentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).PostComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/postComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).PostComment(ctx, req.(*PostCommentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_GetAdminDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdminDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).GetAdminDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/getAdminDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).GetAdminDetail(ctx, req.(*GetAdminDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_ListAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAdminReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).ListAdmin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/listAdmin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).ListAdmin(ctx, req.(*ListAdminReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CatCommunity_ListCarousel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCarouselReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatCommunityServer).ListCarousel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cat.CatCommunity/listCarousel",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatCommunityServer).ListCarousel(ctx, req.(*ListCarouselReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CatCommunity_ServiceDesc is the grpc.ServiceDesc for CatCommunity service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,8 +518,8 @@ var CatCommunity_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CatCommunityServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "getDetail",
-			Handler:    _CatCommunity_GetDetail_Handler,
+			MethodName: "getCatDetail",
+			Handler:    _CatCommunity_GetCatDetail_Handler,
 		},
 		{
 			MethodName: "queryCat",
@@ -177,7 +529,47 @@ var CatCommunity_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "uploadCat",
 			Handler:    _CatCommunity_UploadCat_Handler,
 		},
+		{
+			MethodName: "getUserDetail",
+			Handler:    _CatCommunity_GetUserDetail_Handler,
+		},
+		{
+			MethodName: "upsertUserDetail",
+			Handler:    _CatCommunity_UpsertUserDetail_Handler,
+		},
+		{
+			MethodName: "getMomentDetail",
+			Handler:    _CatCommunity_GetMomentDetail_Handler,
+		},
+		{
+			MethodName: "queryMoment",
+			Handler:    _CatCommunity_QueryMoment_Handler,
+		},
+		{
+			MethodName: "upsertMoment",
+			Handler:    _CatCommunity_UpsertMoment_Handler,
+		},
+		{
+			MethodName: "listComment",
+			Handler:    _CatCommunity_ListComment_Handler,
+		},
+		{
+			MethodName: "postComment",
+			Handler:    _CatCommunity_PostComment_Handler,
+		},
+		{
+			MethodName: "getAdminDetail",
+			Handler:    _CatCommunity_GetAdminDetail_Handler,
+		},
+		{
+			MethodName: "listAdmin",
+			Handler:    _CatCommunity_ListAdmin_Handler,
+		},
+		{
+			MethodName: "listCarousel",
+			Handler:    _CatCommunity_ListCarousel_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "rpc/cat_community.proto",
+	Metadata: "cat_community.proto",
 }

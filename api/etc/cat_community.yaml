@@ -1,0 +1,12 @@
+Name: cat_community.api
+Host: 0.0.0.0
+Port: 8889
+Mode: dev
+Log:
+  Encoding: plain
+Auth:
+  AccessSecret: $JWT_SECRET
+  AccessExpire: 86400
+CatCommunityRPC:
+  Endpoints:
+    - $CAT_COMMUNITY_RPC_HOST

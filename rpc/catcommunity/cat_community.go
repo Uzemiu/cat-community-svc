@@ -13,21 +13,67 @@ import (
 )
 
 type (
-	Cat           = pb.Cat
-	CatDetailReq  = pb.CatDetailReq
-	CatDetailResp = pb.CatDetailResp
-	QueryCatReq   = pb.QueryCatReq
-	QueryCatResp  = pb.QueryCatResp
-	UploadCatReq  = pb.UploadCatReq
-	UploadCatResp = pb.UploadCatResp
+	Admin                = pb.Admin
+	Carousel             = pb.Carousel
+	Cat                  = pb.Cat
+	CatDetailReq         = pb.CatDetailReq
+	CatDetailResp        = pb.CatDetailResp
+	Comment              = pb.Comment
+	GetAdminDetailReq    = pb.GetAdminDetailReq
+	GetAdminDetailResp   = pb.GetAdminDetailResp
+	GetMomentDetailReq   = pb.GetMomentDetailReq
+	GetMomentDetailResp  = pb.GetMomentDetailResp
+	GetUserDetailReq     = pb.GetUserDetailReq
+	GetUserDetailResp    = pb.GetUserDetailResp
+	ListAdminReq         = pb.ListAdminReq
+	ListAdminResp        = pb.ListAdminResp
+	ListCarouselReq      = pb.ListCarouselReq
+	ListCarouselResp     = pb.ListCarouselResp
+	ListCommentReq       = pb.ListCommentReq
+	ListCommentResp      = pb.ListCommentResp
+	Moment               = pb.Moment
+	Photo                = pb.Photo
+	PostCommentReq       = pb.PostCommentReq
+	PostCommentResp      = pb.PostCommentResp
+	QueryCatReq          = pb.QueryCatReq
+	QueryCatResp         = pb.QueryCatResp
+	QueryMomentReq       = pb.QueryMomentReq
+	QueryMomentResp      = pb.QueryMomentResp
+	UploadCatReq         = pb.UploadCatReq
+	UploadCatResp        = pb.UploadCatResp
+	UpsertMomentReq      = pb.UpsertMomentReq
+	UpsertMomentResp     = pb.UpsertMomentResp
+	UpsertUserDetailResp = pb.UpsertUserDetailResp
+	UpsertUserReq        = pb.UpsertUserReq
+	User                 = pb.User
 
 	CatCommunity interface {
-		//  根据ID查询猫咪信息
-		GetDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error)
+		//  Cat
+		GetCatDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error)
 		//  查询猫咪信息
 		QueryCat(ctx context.Context, in *QueryCatReq, opts ...grpc.CallOption) (*QueryCatResp, error)
 		//  上传或更新猫咪信息
 		UploadCat(ctx context.Context, in *UploadCatReq, opts ...grpc.CallOption) (*UploadCatResp, error)
+		//  User
+		GetUserDetail(ctx context.Context, in *GetUserDetailReq, opts ...grpc.CallOption) (*GetUserDetailResp, error)
+		//  插入或更新用户信息
+		UpsertUserDetail(ctx context.Context, in *UpsertUserReq, opts ...grpc.CallOption) (*UpsertUserDetailResp, error)
+		//  Moment
+		GetMomentDetail(ctx context.Context, in *GetMomentDetailReq, opts ...grpc.CallOption) (*GetMomentDetailResp, error)
+		//  查询动态列表
+		QueryMoment(ctx context.Context, in *QueryMomentReq, opts ...grpc.CallOption) (*QueryMomentResp, error)
+		//  上传或更新动态
+		UpsertMoment(ctx context.Context, in *UpsertMomentReq, opts ...grpc.CallOption) (*UpsertMomentResp, error)
+		//  Comment
+		ListComment(ctx context.Context, in *ListCommentReq, opts ...grpc.CallOption) (*QueryMomentResp, error)
+		//  发表评论
+		PostComment(ctx context.Context, in *PostCommentReq, opts ...grpc.CallOption) (*PostCommentResp, error)
+		//  Admin
+		GetAdminDetail(ctx context.Context, in *GetAdminDetailReq, opts ...grpc.CallOption) (*GetAdminDetailResp, error)
+		//  获取管理员列表
+		ListAdmin(ctx context.Context, in *ListAdminReq, opts ...grpc.CallOption) (*ListAdminResp, error)
+		//  Carousel
+		ListCarousel(ctx context.Context, in *ListCarouselReq, opts ...grpc.CallOption) (*ListCarouselResp, error)
 	}
 
 	defaultCatCommunity struct {
@@ -41,10 +87,10 @@ func NewCatCommunity(cli zrpc.Client) CatCommunity {
 	}
 }
 
-//  根据ID查询猫咪信息
-func (m *defaultCatCommunity) GetDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error) {
+//  Cat
+func (m *defaultCatCommunity) GetCatDetail(ctx context.Context, in *CatDetailReq, opts ...grpc.CallOption) (*CatDetailResp, error) {
 	client := pb.NewCatCommunityClient(m.cli.Conn())
-	return client.GetDetail(ctx, in, opts...)
+	return client.GetCatDetail(ctx, in, opts...)
 }
 
 //  查询猫咪信息
@@ -57,4 +103,64 @@ func (m *defaultCatCommunity) QueryCat(ctx context.Context, in *QueryCatReq, opt
 func (m *defaultCatCommunity) UploadCat(ctx context.Context, in *UploadCatReq, opts ...grpc.CallOption) (*UploadCatResp, error) {
 	client := pb.NewCatCommunityClient(m.cli.Conn())
 	return client.UploadCat(ctx, in, opts...)
+}
+
+//  User
+func (m *defaultCatCommunity) GetUserDetail(ctx context.Context, in *GetUserDetailReq, opts ...grpc.CallOption) (*GetUserDetailResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.GetUserDetail(ctx, in, opts...)
+}
+
+//  插入或更新用户信息
+func (m *defaultCatCommunity) UpsertUserDetail(ctx context.Context, in *UpsertUserReq, opts ...grpc.CallOption) (*UpsertUserDetailResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.UpsertUserDetail(ctx, in, opts...)
+}
+
+//  Moment
+func (m *defaultCatCommunity) GetMomentDetail(ctx context.Context, in *GetMomentDetailReq, opts ...grpc.CallOption) (*GetMomentDetailResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.GetMomentDetail(ctx, in, opts...)
+}
+
+//  查询动态列表
+func (m *defaultCatCommunity) QueryMoment(ctx context.Context, in *QueryMomentReq, opts ...grpc.CallOption) (*QueryMomentResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.QueryMoment(ctx, in, opts...)
+}
+
+//  上传或更新动态
+func (m *defaultCatCommunity) UpsertMoment(ctx context.Context, in *UpsertMomentReq, opts ...grpc.CallOption) (*UpsertMomentResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.UpsertMoment(ctx, in, opts...)
+}
+
+//  Comment
+func (m *defaultCatCommunity) ListComment(ctx context.Context, in *ListCommentReq, opts ...grpc.CallOption) (*QueryMomentResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.ListComment(ctx, in, opts...)
+}
+
+//  发表评论
+func (m *defaultCatCommunity) PostComment(ctx context.Context, in *PostCommentReq, opts ...grpc.CallOption) (*PostCommentResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.PostComment(ctx, in, opts...)
+}
+
+//  Admin
+func (m *defaultCatCommunity) GetAdminDetail(ctx context.Context, in *GetAdminDetailReq, opts ...grpc.CallOption) (*GetAdminDetailResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.GetAdminDetail(ctx, in, opts...)
+}
+
+//  获取管理员列表
+func (m *defaultCatCommunity) ListAdmin(ctx context.Context, in *ListAdminReq, opts ...grpc.CallOption) (*ListAdminResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.ListAdmin(ctx, in, opts...)
+}
+
+//  Carousel
+func (m *defaultCatCommunity) ListCarousel(ctx context.Context, in *ListCarouselReq, opts ...grpc.CallOption) (*ListCarouselResp, error) {
+	client := pb.NewCatCommunityClient(m.cli.Conn())
+	return client.ListCarousel(ctx, in, opts...)
 }

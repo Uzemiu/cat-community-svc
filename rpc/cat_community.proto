@@ -4,8 +4,10 @@ package cat;
 
 option go_package='./pb';
 
+// ----------Cat----------
+
 message Cat {
-  int64 catId = 1;
+  string catId = 1;
   string area = 2;
   string age = 3;
   int64 campusId = 4;
@@ -22,7 +24,7 @@ message Cat {
 
 // 根据ID查询猫咪信息
 message CatDetailReq{
-  int64 id = 1;
+  string id = 1;
 }
 
 message CatDetailResp{
@@ -37,7 +39,7 @@ message QueryCatReq{
 }
 
 message QueryCatResp{
-  repeated Cat catList = 1;
+  repeated Cat cats = 1;
 }
 
 // 上传猫咪信息
@@ -48,11 +50,195 @@ message UploadCatReq {
 message UploadCatResp {
 }
 
+// ----------Cat----------
+
+// ----------User----------
+
+message User {
+  string userId = 1;
+  string createAt = 2;
+  string nickname = 3;
+  string avatarUrl = 4;
+  int32 privilegeLevel = 5;
+}
+
+message GetUserDetailReq {
+  string userId = 1;
+}
+
+message GetUserDetailResp {
+  User user = 1;
+}
+
+message UpsertUserReq {
+  User user = 1;
+}
+
+message UpsertUserDetailResp {
+
+}
+
+// ----------User----------
+
+// ----------Moment----------
+
+message Photo {
+  string photoId = 1;
+  string createAt = 2;
+  int32 order = 3;
+  string photoUrl = 4;
+}
+
+message Moment {
+  string momentId = 1;
+  string createAt = 2;
+  string text = 3;
+  string userId = 4;
+  string catId = 5;
+  repeated Photo photos = 6;
+  int32 status = 7;
+}
+
+message GetMomentDetailReq {
+  string momentId = 1;
+}
+
+message GetMomentDetailResp {
+  Moment moment = 1;
+}
+
+message QueryMomentReq {
+  int32 campusId = 1;
+}
+
+message QueryMomentResp {
+  repeated Moment moments = 1;
+}
+
+message UpsertMomentReq {
+  Moment moment = 1;
+}
+
+message UpsertMomentResp {
+
+}
+
+// ----------Moment----------
+
+// ----------Comment----------
+
+message Comment {
+  string commentId = 1;
+  string createAt = 2;
+  string userId = 3;
+  string comment = 4;
+}
+
+message ListCommentReq {
+  string momentId = 1;
+}
+
+message ListCommentResp {
+  repeated Comment comments = 1;
+}
+
+message PostCommentReq {
+  string comment = 1;
+}
+
+message PostCommentResp {
+
+}
+
+// ----------Comment----------
+
+// ----------Admin---------
+
+message Admin {
+  string momentId = 1;
+  string createAt = 2;
+  string name = 3;
+  string phone = 4;
+  string userId = 5;
+  string wechat = 6;
+}
+
+message GetAdminDetailReq {
+  string adminId = 1;
+}
+
+message GetAdminDetailResp {
+  Admin admin = 1;
+}
+
+message ListAdminReq {
+
+}
+
+message ListAdminResp {
+  repeated Admin admins = 1;
+}
+
+// ----------Admin---------
+
+// ----------Carousel---------
+
+message Carousel {
+  string carouselId = 1;
+  string createAt = 2;
+  string imgUrl = 3;
+  int32 order = 4;
+  string srcUrl = 5;
+  int32 typeId = 6;
+}
+
+message ListCarouselReq {
+
+}
+
+message ListCarouselResp {
+  repeated Carousel carousels = 1;
+}
+
+// ----------Carousel---------
+
 service CatCommunity {
+  // Cat
   // 根据ID查询猫咪信息
-  rpc getDetail(CatDetailReq) returns(CatDetailResp);
+  rpc getCatDetail(CatDetailReq) returns(CatDetailResp);
   // 查询猫咪信息
   rpc queryCat(QueryCatReq) returns(QueryCatResp);
   // 上传或更新猫咪信息
   rpc uploadCat(UploadCatReq) returns(UploadCatResp);
+
+  // User
+  // 获取用户信息
+  rpc getUserDetail(GetUserDetailReq) returns(GetUserDetailResp);
+  // 插入或更新用户信息
+  rpc upsertUserDetail(UpsertUserReq) returns(UpsertUserDetailResp);
+
+  // Moment
+  // 查询单个动态详情
+  rpc getMomentDetail(GetMomentDetailReq) returns(GetMomentDetailResp);
+  // 查询动态列表
+  rpc queryMoment(QueryMomentReq) returns(QueryMomentResp);
+  // 上传或更新动态
+  rpc upsertMoment(UpsertMomentReq) returns(UpsertMomentResp);
+
+  // Comment
+  // 获取评论列表
+  rpc listComment(ListCommentReq) returns(QueryMomentResp);
+  // 发表评论
+  rpc postComment(PostCommentReq) returns(PostCommentResp);
+
+  // Admin
+  // 获取管理员信息
+  rpc getAdminDetail(GetAdminDetailReq) returns(GetAdminDetailResp);
+  // 获取管理员列表
+  rpc listAdmin(ListAdminReq) returns(ListAdminResp);
+
+  // Carousel
+  // 获取轮播图列表
+  rpc listCarousel(ListCarouselReq) returns(ListCarouselResp);
 }
+
